@@ -2,7 +2,7 @@
  * Filename: yahtzee.c                                                      *
  * Programmer: K. Shanel Radeesha Perera                                    *
  * Class: SE1012 Programming Methodology                                    *
- * Programming Assignment 4: Implementing a Two-Player Yahtzee Game in C    *
+ * Programming Assignment: Implementing a Two-Player Yahtzee Game in C      *
  * Date: November 15, 2024                                                  *
  *                                                                          *
  * Description: This file contains the complete implementation of a         *
