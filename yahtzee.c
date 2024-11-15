@@ -1,3 +1,21 @@
+/****************************************************************************
+ * Filename: yahtzee.c                                                      *
+ * Programmer: K. Shanel Radeesha Perera                                    *
+ * Class: SE1012 Programming Methodology                                    *
+ * Programming Assignment 4: Implementing a Two-Player Yahtzee Game in C    *
+ * Date: November 15, 2024                                                  *
+ *                                                                          *
+ * Description: This file contains the complete implementation of a         *
+ *              console-based, two-player Yahtzee game. It includes         *
+ *              function definitions for game initialization, scoring,      *
+ *              and display, as well as handling user input and             *
+ *              managing turn logic. Essential functions include those      *
+ *              for dice rolls, calculating scores, and applying Yahtzee    *
+ *              game rules. This file also defines constants, prototypes,   *
+ *              and standard libraries used throughout the game.            *
+ ****************************************************************************/
+
+//Standard Libraries used
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
@@ -54,6 +72,7 @@ void logo(void);
 void game(void);
 int main_menu(void);
 void display_rules(void);
+void sub_menu(void);
 void clear_screen();
 // Scoring functions for each category
 int score_single_numbers (int dice[], int number);
@@ -969,7 +988,7 @@ void player_handle_multiple_yahtzees(int dice[], int player_used_categories[], i
         // Check if the Yahtzee has already been scored
         if (player_used_categories[YAHTZEE] == 1) {  // Yahtzee category already filled
             if (player_scores[YAHTZEE] > 0) {  // Scored a Yahtzee before
-                printf("Congratulations! You rolled another Yahtzee and earned a joker!\n");
+                printf("\nCongratulations! You rolled another Yahtzee and earned a joker!\n");
                 // Add 100 bonus points to the Yahtzee category
                 player_scores[YAHTZEE] += MULTI_YAHTZEE_BONUS;
                 printf("100 bonus points awarded.\n");
@@ -979,7 +998,7 @@ void player_handle_multiple_yahtzees(int dice[], int player_used_categories[], i
                 printf("You have already put 0 in the Yahtzee box.\n");
             }
             // Regardless of whether a bonus was awarded, the joker is triggered
-            printf("You received a joker!\n");
+            printf("\nYou received a joker!\n");
             joker(dice, player_used_categories, player_scores, yahtzee_value);
         } 
         else {
@@ -987,7 +1006,7 @@ void player_handle_multiple_yahtzees(int dice[], int player_used_categories[], i
             printf("You scored a Yahtzee!\n");
             player_scores[YAHTZEE] = yahtzee_score;  // Set the score for Yahtzee category
             player_used_categories[YAHTZEE] = 1;  // Mark the category as used
-            printf("Scored %d points in the Yahtzee category.\n", yahtzee_score);
+            printf("Scored %d points in the Yahtzee category.\n\n", yahtzee_score);
         }
     }
 }
@@ -1261,12 +1280,13 @@ int main_menu(void) {
     printf("-----------------\n");
     printf("[1] Start Game\n"); // Option 1: Start a new game
     printf("[2] Yahtzee Rules\n"); // Option 2: Display the game rules
-    printf("[3] Exit\n"); // Option 3: Exit the program
+    printf("[3] About Game\n"); // Option 3: About this implementation of Yahtzee
+    printf("[4] Exit\n"); // Option 4: Exit the program
     printf("-----------------\n");
 
     // Loop to get valid input from the user
     do {
-        printf("Enter an option: ");
+        printf("Choose an option: ");
         // Read user input and check if it’s a valid integer
         if (scanf("%d", &choice) != 1) {
             // Clear invalid input from buffer if input isn’t an integer
@@ -1295,6 +1315,16 @@ int main_menu(void) {
             display_rules(); // Display the game rules
             break;
         case 3:
+            printf("\n*** About Yahtzee ***\n\n");
+            printf("This implementation of the classic game Yahtzee was programmed by Shanel Perera as a Programming Methodology (SE1012) module assignment\n");
+            printf("in BSc. (HONS) in Computer Science programme at Sri Lanka Institute of Information Technology Faculty of Computing.\n");
+            printf("The purpose of this project was to create a console-based, two-player version of Yahtzee in C, demonstrating proficiency in procedural\n");
+            printf("programming, modular code design, and handling complex game logic in C. The game includes standard Yahtzee rules, a computer-controlled\n");
+            printf("player with strategic scoring logic, and various features. Developed entirely in C and requires a C compiler(GCC) to compile and run.\n\n");
+            sub_menu();
+            break;
+        case 4:
+            printf("\nThank you for playing Yahtzee! Hope you enjoyed the game.\n\n");
             exit(0); // Exit the program
             break;
     }
@@ -1332,6 +1362,12 @@ void display_rules(void) {
     printf("2. You've already put 0 in the Yahtzee box: In this case you get no 100 point bonus, but you do get a joker, and can choose your move following the rules \n                                            described above for jokers.\n\n\n");
     
     // Display options to go back to the main menu or exit
+    sub_menu();
+}
+
+/* A sub menu to navigate back to main menu or exit the game */
+void sub_menu(void) {
+    // Display options to go back to the main menu or exit
     do {
         char choice;
         printf("[B] Back to Main Menu\n"); // Option to return to main menu
@@ -1345,7 +1381,7 @@ void display_rules(void) {
             main_menu(); // Go back to main menu
         }
         else if (choice == 'E' || choice == 'e') {
-            printf("Thank you for playing Yahtzee!\n\n");
+            printf("Thank you for playing Yahtzee! Hope you enjoyed the game.\n\n");
             exit(0); // Exit the game
         }
         else {
