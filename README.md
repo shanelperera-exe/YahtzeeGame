@@ -1,5 +1,7 @@
 # C-based Yahtzee Game (CLI)
 
+![Screenshot](./screenshot.png)
+
 This is a command-line version of the classic Yahtzee dice game, written in C. The game includes a single-player mode against a computer opponent, which follows a strategy for selecting scoring categories. The objective is to score as many points as possible by rolling dice and achieving specific combinations.
 
 ---
